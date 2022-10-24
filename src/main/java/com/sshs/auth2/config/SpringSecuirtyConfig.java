@@ -25,19 +25,19 @@ public class SpringSecuirtyConfig extends WebSecurityConfigurerAdapter {
         // authroization
         http.authorizeRequests()
                 .antMatchers("/static/**").permitAll()
-                .antMatchers("/", "/index.do").permitAll()
+                .antMatchers("/login", "/").permitAll()
                 .anyRequest().authenticated();
 
-//        // login
-//        http.formLogin()
-//                .loginPage("/login.do")
-//                .defaultSuccessUrl("/index.do")
-//                .permitAll();
-//
-//        // logout
-//        http.logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/");
+        // login
+        http.formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .permitAll();
+
+        // logout
+        http.logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/");
     }
 
 
