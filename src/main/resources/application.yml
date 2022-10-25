@@ -9,13 +9,25 @@ spring:
     username: sshs0702
     password: Tjdtks@1607
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   thymeleaf:
     prefix: classpath:templates/
     suffix: .html
     check-template-location: true
     cache: false
+
+  # JPA Settings
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
 # session
 server:
   servlet:
     session:
       timeout: 10m # 기본이 30분이고 최소는 1분입니다.
+

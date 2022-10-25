@@ -6,37 +6,38 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
 @Entity
-@Table
+@Table(name="users")
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable=false)
     private String username;
 
+    private String fullName;
+
+    @Column(nullable=false)
     private String password;
 
+    @Column(nullable=false, unique=true)
     private String email;
 
     private String phoneNumber;
 
     private String address;
-
     private String authority;
 
     @CreatedDate
@@ -49,10 +50,6 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton((GrantedAuthority) () -> authority);
-    }
-
-    public Boolean isAdmin() {
-        return authority.equals("ROLE_ADMIN");
     }
 
     @Override
